@@ -26,7 +26,7 @@ public class Trip {
     @Column(name = "trip_status_id")
     private Long tripStatusId;
 
-    @Column(name = "profile_id")
+    @Column(name = "personal_information_id")
     private Long tripUserId;
 
     @Column(name="vehicle_id")
@@ -53,8 +53,8 @@ public class Trip {
     @Column(name = "end_date")
     private Date tripEndDate;
 
-    @Column(name= "calification")
-    private Integer tripCalification;
+    @Column(name= "score")
+    private Integer tripScore;
 
     @Column(name = "comments")
     private String tripComments;
