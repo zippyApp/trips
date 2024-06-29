@@ -19,9 +19,9 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/v1/trips")
 public class TripController {
 
-    @Autowired
+
     private TripService tripService;
-    @Autowired
+
     private StationsClient stationsClient;
 
     @GetMapping
@@ -47,7 +47,7 @@ public class TripController {
 
     }
 
-    @PostMapping("/{tripId}")
+    @PostMapping("/TripStatusSalida/{tripId}")
     public ResponseEntity<?> updateTripStatusSalida(@PathVariable Long tripId, @RequestParam long value) {
         try {
 
@@ -72,7 +72,7 @@ public class TripController {
 
 
 
-    @PostMapping("/{tripId}")
+    @PostMapping("/TripStatusLlegada/{tripId}")
     public ResponseEntity<?> updateTripStatusLlegada(@PathVariable Long tripId, @RequestParam long value) {
         try {
 
@@ -95,4 +95,14 @@ public class TripController {
         }
     }
 
+    @Autowired
+    public void setTripService(TripService tripService){
+        this.tripService = tripService;
     }
+
+    @Autowired
+    public void setStationsClient(StationsClient stationsClient){
+        this.stationsClient = stationsClient;
+    }
+
+}
