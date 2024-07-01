@@ -9,12 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Repositorio de ESTACIONES
- *
- * @author Johan Jerez
- * @since 1.0
- */
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
 

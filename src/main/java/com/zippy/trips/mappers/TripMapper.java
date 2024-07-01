@@ -4,12 +4,6 @@ import com.zippy.trips.model.Trip;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-/**
- * Mapper de estaciones
- *
- * @author Johan Jerez
- *
- */
 @Mapper(componentModel = "spring")
 public interface TripMapper {
 
