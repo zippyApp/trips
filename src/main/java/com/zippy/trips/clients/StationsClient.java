@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
-@FeignClient(value = "stationsFeign", url = "http://localhost:8083/api/v1/stations")
+@FeignClient(value = "stationsFeign", url = "http://localhost:9000/api/v1/stations")
 public interface StationsClient {
 
     @GetMapping("/all")
     List<StationDTO> getStations();
 
-    @GetMapping("/getStationById/{stationId}")
+    @GetMapping("/{stationId}")
     StationDTO getStationById(@PathVariable(name = "stationId") String stationId);
 
-    @PutMapping("/updateStationStatus")
+    @PutMapping("/update/status")
     StationDTO updateStationStatus(@RequestHeader("stationId") Long stationId, @RequestHeader("statusId")Long statusId);
 
-    @PutMapping("/updateStationCapacity")
+    @PutMapping("/update/capacity")
     StationDTO updateStationCapacity(@RequestHeader("stationId") Long stationId, @RequestHeader("capacity") Integer capacity);
 
 }

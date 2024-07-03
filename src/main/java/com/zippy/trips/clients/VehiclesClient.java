@@ -22,6 +22,9 @@ public interface VehiclesClient {
     @PutMapping("/{vehicleId}/status/{statusId}")
     VehicleDTO updateVehicleStatus(@PathVariable Long vehicleId, @PathVariable Integer statusId);
 
+    @PutMapping("/{vehicleId}/station/{stationId}")
+    VehicleDTO updateVehicleStation(@PathVariable Long vehicleId, @PathVariable Long stationId);
+
     @GetMapping("/status/{id}")
     List<VehicleDTO> findByVehicleStatusId(@PathVariable Long id);
 
@@ -37,6 +40,6 @@ public interface VehiclesClient {
     @GetMapping("/type/{name}")
     List<VehicleDTO>findByVehicleTypeName(@PathVariable String name);
 
-    @GetMapping("/station/{stationId}/status/{name}")
-    List<VehicleDTO>findByVehicleStationIdAndStatusName(@PathVariable Long stationId, @PathVariable String name);
+    @GetMapping("/station/{stationId}/status/{vehicleStatusId}")
+    List<VehicleDTO>findByStationIdAndStatusId(@PathVariable Long stationId, @PathVariable int vehicleStatusId);
 }
