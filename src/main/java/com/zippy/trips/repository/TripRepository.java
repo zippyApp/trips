@@ -13,10 +13,10 @@ import java.util.Optional;
 public interface TripRepository extends JpaRepository<Trip, Long> {
 
     List<Trip> findByTripTypeId(Long tripTypeId);
-    @Query("SELECT t FROM Trip t WHERE t.tripStatusId = :tripStatusId AND t.tripStartStationId = :tripStartStationId")
+    @Query("SELECT t FROM Trip t WHERE t.statusId = :tripStatusId AND t.startStationId = :tripStartStationId")
     List<Trip> findByTripStatusIdAndTripStartStationId(@Param("tripStatusId") Long tripStatusId, @Param("tripStartStationId") Long tripStartStationId);
 
-    @Query("SELECT t FROM Trip t WHERE t.tripStatusId = :tripStatusId AND t.tripEndStationId = :tripEndStationId")
+    @Query("SELECT t FROM Trip t WHERE t.statusId = :tripStatusId AND t.endStationId = :tripEndStationId")
     List<Trip> findByTripStatusIdAndTripEndStationId(@Param("tripStatusId") Long tripStatusId, @Param("tripEndStationId") Long tripStartStationId);
 
 }

@@ -2,9 +2,7 @@ package com.zippy.trips.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -21,43 +19,43 @@ public class Trip {
     private Long id;
 
     @Column(name = "trip_type_id")
-    private Long tripTypeId;
+    private Long typeId;
 
     @Column(name = "trip_status_id")
-    private Long tripStatusId;
+    private Long statusId;
 
     @Column(name = "personal_information_id")
-    private Long tripUserId;
+    private Long userId;
 
     @Column(name="vehicle_id")
-    private Long tripVehicleId;
+    private Long vehicleId;
 
     @Column(name = "start_station_id")
-    private Long tripStartStationId;
+    private Long startStationId;
 
     @Column(name = "end_station_id")
-    private Long tripEndStationId;
+    private Long endStationId;
 
     @Column(name = "cost")
-    private Double tripCost;
+    private Double cost;
 
     @Column(name = "reservation_date")
-    private Date tripReserveDate;
+    private Date reserveDate;
 
     @Column(name = "waiting_approval_date")
-    private Date tripWaitingApprovalDate;
+    private Date waitingApprovalDate;
 
     @Column(name = "start_date")
-    private Date tripStartDate;
+    private Date startDate;
 
     @Column(name = "end_date")
-    private Date tripEndDate;
+    private Date endDate;
 
     @Column(name= "score")
-    private Integer tripScore;
+    private Integer score;
 
     @Column(name = "comments")
-    private String tripComments;
+    private String comments;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

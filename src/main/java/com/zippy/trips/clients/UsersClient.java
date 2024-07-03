@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "usersFeign", url = "http://localhost:8081/api/v1/users")
+@FeignClient(value = "usersFeign", url = "http://localhost:8090/api/v1/users")
 public interface UsersClient {
 
     @GetMapping("/")
@@ -20,7 +20,5 @@ public interface UsersClient {
 
     @DeleteMapping("/{id}")
     Void deletePersonalInformation(@PathVariable Long id);
-
-
 
 }
