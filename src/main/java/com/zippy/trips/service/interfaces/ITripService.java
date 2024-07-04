@@ -8,7 +8,7 @@ import com.zippy.trips.dto.OutcomingDTO;
 import com.zippy.trips.model.Trip;
 
 public interface ITripService {
-    Optional<Trip> createTrip(Trip trip);
+    Trip createTrip(Trip trip);
 
     Optional<Trip> findById(Long id);
 
@@ -23,4 +23,8 @@ public interface ITripService {
     Optional<Trip> updateStatusTypeId(long id, long tripStatusId);
 
     Optional<Trip> endTrip(Long tripId);
+
+    List<Trip> findByUserId(Long userId);
+
+    Trip createAndSaveTrip(Trip trip);
 }

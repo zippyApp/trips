@@ -44,7 +44,19 @@ public class TripService implements ITripService {
 
     @Transactional
     @Override
-    public Optional<Trip> createTrip(Trip trip) {
+    public Trip createAndSaveTrip(Trip trip) {
+        return tripRepository.save(createTrip(trip));
+    }
+
+    @Override
+    @Transactional
+    public List<Trip> findByUserId(Long userId) {
+        return findByUserId(userId);
+    }
+
+    @Transactional
+    @Override
+    public Trip createTrip(Trip trip) {
         trip.setWaitingApprovalDate(new Date());
         trip.setVehicleId(
                 vehiclesClient.findByStationIdAndStatusId(trip.getStartStationId(), AVAILABLE)
@@ -61,7 +73,7 @@ public class TripService implements ITripService {
                         LocalDateTime.now()
                                 .plusMinutes(routesClient.getRouteInfo(trip.getStartStationId(), trip.getEndStationId())
                                         .getDuration() + 10
-                        ).atZone(ZoneId.systemDefault()).toInstant()
+                                ).atZone(ZoneId.systemDefault()).toInstant()
                 )
         );
         if (trip.getTypeId() == INSTANT_TRIP) {
@@ -92,7 +104,7 @@ public class TripService implements ITripService {
             );
         }
         vehiclesClient.updateVehicleStatus(trip.getVehicleId(), RESERVED_VEHICLE);
-        return Optional.of(tripRepository.save(trip));
+        return trip;
     }
 
     @Transactional

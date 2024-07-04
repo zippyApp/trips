@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/trips")
@@ -23,6 +24,11 @@ public class TripController {
     @GetMapping("/{idStation}/outcoming")
     public ResponseEntity<List<OutcomingDTO>> getOutcomingTrips(@PathVariable long idStation) {
         return ResponseEntity.ok(tripService.getOutcomingInfo(idStation));
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<Trip>> getTripsByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(tripService.findByUserId(userId));
     }
 
     @GetMapping("/{tripId}")
@@ -62,10 +68,18 @@ public class TripController {
 
     @PostMapping("/new")
     public ResponseEntity<Trip> createTrip(@RequestBody Trip trip) {
-        return tripService.createTrip(trip)
+        return Optional.of(tripService.createAndSaveTrip(trip))
                 .map(ResponseEntity.created(null)::body)
                 .orElse(ResponseEntity.badRequest().build());
     }
+
+    @PostMapping("/new-test")
+    public ResponseEntity<Trip> testTrip(@RequestBody Trip trip) {
+        return Optional.of(tripService.createTrip(trip))
+                .map(ResponseEntity.created(null)::body)
+                .orElse(ResponseEntity.badRequest().build());
+    }
+
 
     @Autowired
     public void setTripService(ITripService tripService){
