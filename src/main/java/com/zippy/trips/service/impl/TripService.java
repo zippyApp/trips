@@ -4,7 +4,6 @@ import com.zippy.trips.clients.RoutesClient;
 import com.zippy.trips.clients.UsersClient;
 import com.zippy.trips.clients.VehiclesClient;
 import com.zippy.trips.dto.*;
-import com.zippy.trips.mappers.TripMapper;
 import com.zippy.trips.model.Trip;
 import com.zippy.trips.repository.TripRepository;
 import com.zippy.trips.service.interfaces.ITripService;
@@ -42,6 +41,10 @@ public class TripService implements ITripService {
     private final int RESERVED_VEHICLE = 2;
     private final int ON_TRIP = 3;
 
+    private final int BIKE = 1;
+    private final int SCOOTER = 2;
+    private final int E_BIKE = 3;
+
     @Transactional
     @Override
     public Trip createAndSaveTrip(Trip trip) {
@@ -58,15 +61,26 @@ public class TripService implements ITripService {
     @Override
     public Trip createTrip(Trip trip) {
         trip.setWaitingApprovalDate(new Date());
-        trip.setVehicleId(
-                vehiclesClient.findByStationIdAndStatusId(trip.getStartStationId(), AVAILABLE)
-                        .stream()
-                        .findFirst()
-                        .map(VehicleDTO::getId)
-                        .orElseThrow(() -> new RuntimeException("No available vehicles"))
-        );
+        if (trip.getVehicleId() == null) {
+            trip.setVehicleId(
+                    vehiclesClient.findByStationIdAndStatusId(trip.getStartStationId(), AVAILABLE)
+                            .stream()
+                            .findFirst()
+                            .map(VehicleDTO::getId)
+                            .orElseThrow(() -> new RuntimeException("No available vehicles"))
+            );
+        }
+
+        Integer vehicleType = vehiclesClient.findById(trip.getVehicleId()).getTypeId();
+        double multiplier;
+
+        if (vehicleType.equals(BIKE)) multiplier = 0.5;
+        else if (vehicleType.equals(SCOOTER)) multiplier = 1;
+        else multiplier = 1.5;
+
+
         trip.setCost(
-                routesClient.getRouteInfo(trip.getStartStationId(), trip.getEndStationId()).getDistance() * 1000
+                routesClient.getRouteInfo(trip.getStartStationId(), trip.getEndStationId()).getDistance() * 1000 * multiplier
         );
         trip.setEndDate(
                 Date.from(

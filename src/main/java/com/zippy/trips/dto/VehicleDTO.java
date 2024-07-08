@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class VehicleDTO {
     private Long id;
-    private String type;
+    private Integer typeId;
     private String status;
     private Long stationId;
     private boolean electric;
